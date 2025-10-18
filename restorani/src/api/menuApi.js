@@ -24,7 +24,7 @@ export const fetchMealsByCategory = async (categoryName) => {
         id: meal.idMeal,
         name: meal.strMeal,
         image: meal.strMealThumb,
-        // ფეიკ ფასი $8-დან $25-მდე
+        // ფეიკ ფასი $20-დან $35-მდე
         price: (Math.random() * (25 - 8) + 8).toFixed(2), 
         category: finalCategory
       }));

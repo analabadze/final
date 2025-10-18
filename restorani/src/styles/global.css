@@ -1,11 +1,17 @@
 :root {
-  --primary-color: #ff6347; /* Red (Accent) */
-  --secondary-color: #333; /* Dark Grey (Text) */
-  --background-color: #f8f8f8;
-  --header-bg: #fff;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --border-radius: 6px;
-  --font-family: 'Arial', sans-serif;
+  /* Updated to a warm, premium, and elegant palette */
+  
+  /* --- Colors --- */
+  --primary-color: #A35757; /* Deep Dusty Rose / Wine (Primary Accent for buttons/focus) */
+  --secondary-color: #2D2D2D; /* Dark Espresso (Headings and key text) */
+  --accent-color: #D4AF37; /* Subtle Gold/Brass (Used for highlights, e.g., icons) */
+  --background-color: #F8F8F8; /* Soft Off-White / Light Cream */
+  --header-bg: #FFFFFF; /* Pure White for contrast */
+  
+  /* --- Visuals & Typography --- */
+  --shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Deeper, more luxurious shadow */
+  --border-radius: 12px; /* Large border radius for soft, modern look */
+  --font-family: 'Georgia', serif, sans-serif; /* Pairing a classic serif with system fallback */
 }
 
 * {
@@ -18,38 +24,41 @@ body {
   font-family: var(--font-family);
   background-color: var(--background-color);
   color: var(--secondary-color);
-  line-height: 1.6;
+  line-height: 1.7; /* Slightly increased line height for better readability */
+  transition: background-color 0.3s;
 }
 
 h1, h2, h3 {
-  color: var(--secondary-color);
+  color: var(--secondary-color); 
   margin-top: 0;
+  font-weight: 700; /* Bold headings for impact */
+  letter-spacing: -0.5px; /* Tighter letter spacing for elegance */
 }
 
+/* Base Styles (can be overridden by Tailwind utility classes in React components) */
 .container {
-  max-width: 1200px;
+  max-width: 1280px; /* Slightly wider container */
   margin: 0 auto;
   padding: 0 20px;
 }
 
-.button-primary {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
+/* Example: Card Base Style */
+.card {
+  background-color: var(--header-bg);
   border-radius: var(--border-radius);
-  transition: background-color 0.3s ease;
-  font-size: 16px;
-  text-decoration: none;
-  font-weight: bold;
+  box-shadow: var(--shadow);
+  padding: 25px;
+  transition: transform 0.3s ease-in-out;
 }
 
-.button-primary:hover {
-  background-color: #e5533d;
-}
-
-.button-primary:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+/* Example: Primary Button Style */
+.btn-primary {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  border-radius: var(--border-radius);
+  padding: 12px 24px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
 }
