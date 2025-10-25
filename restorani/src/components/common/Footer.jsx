@@ -9,10 +9,11 @@ const Footer = () => {
         <div style={navSectionStyle}>
           <p style={sectionTitleStyle}>ნავიგაცია</p>
           <ul style={ulStyle}>
-      
+           
             <li style={liStyle}><Link to="/about" style={footerLinkStyle}>ჩვენს შესახებ</Link></li>
             <li style={liStyle}><Link to="/" style={footerLinkStyle}>მენიუ</Link></li>
-            <li style={liStyle}><Link to="/contact" style={footerLinkStyle}>კონტაქტი</Link></li>
+         <li style={liStyle}><Link to="/contact" style={footerLinkStyle}>კონტაქტი</Link></li>
+          
             
           </ul>
         </div>
@@ -21,12 +22,11 @@ const Footer = () => {
           <p style={sectionTitleStyle}>დაგვიკავშირდით</p>
           <ul style={ulStyle}>
             <li style={liStyle}>📞 (555) 123-456</li>
-            <li style={liStyle}>📧ana.labadze435@tsu.edu.cve.ge</li>
-            <li style={liStyle}>📍kutaisi. nikea street</li>
+            <li style={liStyle}>📧 ana.labadze435@tsu.edu.ge</li> 
+            <li style={liStyle}>📍 Kutaisi. Nikea street</li> 
           </ul>
         </div>
         
-
         <div style={brandSectionStyle}>
           <p style={logoStyle}>🍜 Simple Menu</p>
           <div style={socialLinksStyle}>
@@ -44,7 +44,6 @@ const Footer = () => {
 
       </div>
       
-
       <div style={copyrightStyle}>
         <div className="container">
           &copy; {new Date().getFullYear()} Simple Menu. ყველა უფლება დაცულია.
@@ -54,6 +53,7 @@ const Footer = () => {
   );
 };
 
+// [აქ იქნებოდა სტილების კოდი, რომელიც უცვლელია]
 const footerStyle = {
     backgroundColor: 'var(--footer-bg, #f8f8f8)',
     borderTop: '1px solid var(--border-color, #eee)',
@@ -141,5 +141,6 @@ const copyrightStyle = {
     fontSize: '13px',
     color: 'var(--text-color-dark, #444)',
 };
+
 
 export default Footer;

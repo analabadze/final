@@ -4,7 +4,7 @@ import { useCart } from '../../context/CartContext';
 const CartItem = ({ item }) => {
   const { addToCart, removeFromCart } = useCart();
 
-  // ფასის string-ად გარდაქმნა 
+
   const displayPrice = typeof item.price === 'number' ? item.price.toFixed(2) : item.price;
 
   return (
@@ -24,7 +24,7 @@ const CartItem = ({ item }) => {
   );
 };
 
-// სტილები
+
 const itemStyle = {
   display: 'flex',
   alignItems: 'center',

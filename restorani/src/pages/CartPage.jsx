@@ -49,7 +49,7 @@ const CartPage = () => {
   );
 };
 
-// სტილები
+
 const cartContainerStyle = {
     maxWidth: '800px',
     margin: '0 auto',
