@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'; 
 
 const ContactPage = () => {
   return (
@@ -8,7 +9,6 @@ const ContactPage = () => {
       
       <div style={contentWrapperStyle}>
         
-  
         <section style={infoSectionStyle}>
           <h2 style={subHeadingStyle}>ჩვენი საკონტაქტო მონაცემები</h2>
           <p style={infoParagraphStyle}>ჩვენ მზად ვართ, ვუპასუხოთ თქვენს ნებისმიერ შეკითხვას. მოგვწერეთ ან დაგვირეკეთ:</p>
@@ -16,12 +16,11 @@ const ContactPage = () => {
           <ul style={ulStyle}>
             <li style={liStyle}>📞 ტელეფონი: <span style={infoDetailStyle}>(555) 123-456</span></li>
             <li style={liStyle}>📧 ელ. ფოსტა: <span style={infoDetailStyle}>ana.labadze435@tsu.edu.ge </span></li>
-            <li style={liStyle}>📍 მისამართი: <span style={infoDetailStyle}>kutaisi. nikea street 17 </span></li>
-            <li style={liStyle}>⏰ სამუშაო საათები: <span style={infoDetailStyle}> Monday - Sunday  10:00 - 23:00</span></li>
+            <li style={liStyle}>📍 მისამართი: <span style={infoDetailStyle}>Kutaisi. Nikea street 17 </span></li>
+            <li style={liStyle}>⏰ სამუშაო საათები: <span style={infoDetailStyle}> Monday - Sunday, 10:00 - 23:00</span></li>
           </ul>
         </section>
 
-      
         <section style={formSectionStyle}>
           <h2 style={subHeadingStyle}>გამოგვიგზავნეთ შეტყობინება</h2>
           <form style={formStyle}>
@@ -33,9 +32,18 @@ const ContactPage = () => {
         </section>
         
       </div>
+      
+      <div style={ctaBoxStyle}>
+          
+          <Link to="/" style={ctaLinkStyle}>
+            მთავარ გვერდზე დაბრუნება
+          </Link>
+      </div>
+        
     </div>
   );
 };
+
 
 
 
@@ -131,6 +139,35 @@ const submitButtonStyle = {
     border: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.2s ease',
+};
+
+
+const ctaBoxStyle = {
+    marginTop: '50px',
+    padding: '30px',
+    backgroundColor: 'var(--cta-bg, #f0f0f0)',
+    borderRadius: '8px',
+    textAlign: 'center',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.05)',
+};
+
+const ctaTextStyle = {
+    fontSize: '20px',
+    color: 'var(--primary-color-dark, #34495e)',
+    marginBottom: '20px',
+    fontWeight: '700',
+};
+
+const ctaLinkStyle = {
+    backgroundColor: 'var(--primary-color, #e74c3c)',
+    color: '#fff', 
+    padding: '12px 25px',
+    fontSize: '16px',
+    fontWeight: 'bold',
+    borderRadius: '25px',
+    textDecoration: 'none',
+    transition: 'background-color 0.2s ease',
+    display: 'inline-block',
 };
 
 export default ContactPage;
