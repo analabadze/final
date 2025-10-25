@@ -11,22 +11,29 @@ const Header = () => {
       
       <div className="container" style={navContainerStyle}>
         
-        <Link to="/" style={logoStyle}>
-          🍜 Simple Menu
-        </Link>
+        {/* ლოგო და მენიუს ლინკი - ერთ ჯგუფში მარცხნივ */}
+        <div style={leftGroupStyle}>
+            <Link to="/" style={logoStyle}>
+              🍜 Simple Menu
+            </Link>
+            
+            <nav style={menuNavStyle}>
+              <Link to="/" style={navLinkStyle}>
+                მენიუ
+              </Link>
+            </nav>
+        </div>
         
-        <nav style={navStyle}>
-          <Link to="/" style={navLinkStyle}>
-            მენიუ
-          </Link>
-          <Link to="/cart" style={cartButtonStyle}>
-            🛒 კალათა <span style={itemCountStyle}>({totalItems})</span>
-          </Link>
-        </nav>
+        {/* კალათა - მარჯვენა კიდეზე, მაქსიმალურად გამოყოფილი */}
+        <Link to="/cart" style={cartButtonStyle}>
+          🛒 კალათა <span style={itemCountStyle}>({totalItems})</span>
+        </Link>
       </div>
     </header>
   );
 };
+
+// --- სტილები (Styles) ---
 
 const topBarStyle = {
     backgroundColor: 'var(--primary-color-dark, #2c3e50)', 
@@ -46,6 +53,13 @@ const navContainerStyle = {
   alignItems: 'center',
 };
 
+// ახალი სტილი ლოგოსა და მენიუს ერთ ჯგუფად გასაერთიანებლად
+const leftGroupStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '40px', // დიდი დაშორება ლოგოსა და მენიუს შორის
+};
+
 const logoStyle = {
   fontSize: '30px', 
   fontWeight: '900', 
@@ -54,10 +68,10 @@ const logoStyle = {
   letterSpacing: '-1px',
 };
 
-const navStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  gap: '30px',
+const menuNavStyle = {
+    // ეს მხოლოდ მენიუს ლინკს მოიცავს
+    display: 'flex',
+    alignItems: 'center',
 };
 
 const navLinkStyle = {
@@ -71,6 +85,7 @@ const navLinkStyle = {
 };
 
 const cartButtonStyle = {
+  // კალათის ღილაკი რჩება ძლიერი, მარჯვენა კიდეზე
   backgroundColor: 'var(--primary-color, #e74c3c)',
   color: '#fff', 
   padding: '12px 20px',
@@ -82,6 +97,7 @@ const cartButtonStyle = {
   alignItems: 'center',
   boxShadow: '0 4px 6px rgba(0, 0, 0, 0.15)',
   transition: 'all 0.3s ease',
+  flexShrink: 0, // უზრუნველყოფს, რომ არ შეიკუმშოს
 };
 
 const itemCountStyle = {
