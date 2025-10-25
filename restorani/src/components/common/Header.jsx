@@ -7,20 +7,18 @@ const Header = () => {
 
   return (
     <header style={headerStyle}>
-      <div className="container" style={navContainerStyle}>
+      <div style={topBarStyle}></div> 
       
+      <div className="container" style={navContainerStyle}>
+        
         <Link to="/" style={logoStyle}>
           🍜 Simple Menu
         </Link>
         
-      
         <nav style={navStyle}>
-     
           <Link to="/" style={navLinkStyle}>
             მენიუ
           </Link>
-          
-         
           <Link to="/cart" style={cartButtonStyle}>
             🛒 კალათა <span style={itemCountStyle}>({totalItems})</span>
           </Link>
@@ -30,13 +28,16 @@ const Header = () => {
   );
 };
 
+const topBarStyle = {
+    backgroundColor: 'var(--primary-color-dark, #2c3e50)', 
+    height: '4px',
+    width: '100%',
+};
 
 const headerStyle = {
-  
-  backgroundColor: 'var(--header-bg, #f7f7f7)',
-  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-  padding: '12px 0', 
-  borderBottom: '1px solid var(--border-color, #eee)',
+  backgroundColor: 'var(--header-bg, #ffffff)', 
+  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+  padding: '15px 0', 
 };
 
 const navContainerStyle = {
@@ -46,54 +47,47 @@ const navContainerStyle = {
 };
 
 const logoStyle = {
-  fontSize: '28px', 
-  fontWeight: '900',
-  color: 'var(--primary-color, #2c3e50)',
+  fontSize: '30px', 
+  fontWeight: '900', 
+  color: 'var(--primary-color-brand, #34495e)',
   textDecoration: 'none',
-  letterSpacing: '-0.5px', 
+  letterSpacing: '-1px',
 };
 
 const navStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '25px',
+  gap: '30px',
 };
-
-
-const navLinkBaseStyle = {
-  textDecoration: 'none',
-  color: 'var(--secondary-color, #333)',
-  transition: 'color 0.2s ease, transform 0.2s ease',
-  fontSize: '16px',
-};
-
 
 const navLinkStyle = {
-    ...navLinkBaseStyle,
-    fontWeight: '600',
-  
+  textDecoration: 'none',
+  color: 'var(--secondary-color, #333)',
+  transition: 'color 0.2s ease, border-bottom 0.2s ease',
+  fontSize: '17px',
+  fontWeight: '600',
+  paddingBottom: '2px',
+  borderBottom: '2px solid transparent',
 };
 
 const cartButtonStyle = {
-
-  backgroundColor: 'var(--primary-color, #ff6b6b)', 
+  backgroundColor: 'var(--primary-color, #e74c3c)',
   color: '#fff', 
-  padding: '10px 18px',
-  fontSize: '15px',
+  padding: '12px 20px',
+  fontSize: '16px',
   fontWeight: 'bold',
-  borderRadius: '25px', 
+  borderRadius: '4px',
   textDecoration: 'none',
   display: 'inline-flex',
   alignItems: 'center',
-  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.15)',
   transition: 'all 0.3s ease',
- 
 };
 
 const itemCountStyle = {
-    marginLeft: '5px',
-    fontWeight: '700',
-    
+    marginLeft: '8px',
+    fontWeight: '800',
+    fontSize: '17px',
 };
 
 export default Header;
