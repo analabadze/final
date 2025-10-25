@@ -3,6 +3,7 @@ import Header from '../components/common/Header';
 import CategoryFilter from '../components/menu/CategoryFilter';
 import { fetchMealsByCategory } from '../api/menuApi';
 import MenuItem from '../components/menu/MenuItem';
+import Footer from '../components/common/Footer';
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
@@ -48,6 +49,8 @@ const HomePage = () => {
           </div>
         )}
       </div>
+
+      <Footer/>
     </>
   );
 };
