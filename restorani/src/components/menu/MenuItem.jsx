@@ -1,67 +1,128 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 
-const MenuItem = ({ item }) => {
-  const { addToCart } = useCart();
-
-  const handleAddToCart = () => {
-    addToCart(item);
-  };
-
-  return (
-    <div style={cardStyle}>
-      <img src={item.image} alt={item.name} style={imageStyle} />
-      <div style={contentStyle}>
-        <h3>{item.name}</h3>
-        <p style={{ color: '#555' }}>კატეგორია: {item.category}</p>
-        <div style={footerStyle}>
-          <span style={priceStyle}>{item.price} ₾</span>
-          <button className="button-primary" onClick={handleAddToCart}>
-            კალათაში დამატება
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// სტილები
 const cardStyle = {
-  border: '1px solid #ddd',
-  borderRadius: 'var(--border-radius)',
+  border: 'none',
+  borderRadius: '16px',
   overflow: 'hidden',
-  width: '300px',
-  boxShadow: 'var(--shadow)',
+  width: '320px',
   backgroundColor: '#fff',
   display: 'flex',
   flexDirection: 'column',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+  transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+  cursor: 'pointer',
+};
+
+const cardHoverStyle = {
+  transform: 'translateY(-6px)',
+  boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
 };
 
 const imageStyle = {
   width: '100%',
-  height: '200px',
+  height: '220px',
   objectFit: 'cover',
+  transition: 'transform 0.3s ease',
 };
 
 const contentStyle = {
-  padding: '15px',
-  flexGrow: 1,
+  padding: '18px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  gap: '12px',
+  flexGrow: 1,
+};
+
+const titleStyle = {
+  fontSize: '1.1em',
+  fontWeight: 600,
+  color: '#222',
+  marginBottom: '8px',
+};
+
+const categoryStyle = {
+  fontSize: '0.9em',
+  color: '#666',
+  marginBottom: '10px',
 };
 
 const footerStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginTop: '10px',
+  marginTop: '12px',
 };
 
 const priceStyle = {
-  fontSize: '1.2em',
-  fontWeight: 'bold',
-  color: 'var(--primary-color)',
+  fontSize: '1.25em',
+  fontWeight: '700',
+  color: 'var(--primary-color, #0070f3)',
+};
+
+const buttonStyle = {
+  backgroundColor: 'var(--primary-color, #0070f3)',
+  color: '#fff',
+  border: 'none',
+  borderRadius: '8px',
+  padding: '8px 14px',
+  fontSize: '0.9em',
+  fontWeight: 500,
+  cursor: 'pointer',
+  transition: 'background-color 0.25s ease, transform 0.2s ease',
+};
+
+const buttonHoverStyle = {
+  backgroundColor: '#0059c1',
+  transform: 'scale(1.03)',
+};
+
+const MenuItem = ({ item }) => {
+  const { addToCart } = useCart();
+  const [isHovered, setIsHovered] = useState(false);
+  const [isButtonHovered, setButtonHovered] = useState(false);
+
+  const handleAddToCart = () => addToCart(item);
+
+  return (
+    <div
+      style={{
+        ...cardStyle,
+        ...(isHovered ? cardHoverStyle : {}),
+      }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <img
+        src={item.image}
+        alt={item.name}
+        style={{
+          ...imageStyle,
+          transform: isHovered ? 'scale(1.03)' : 'scale(1)',
+        }}
+      />
+      <div style={contentStyle}>
+        <h3 style={titleStyle}>{item.name}</h3>
+        <p style={categoryStyle}>კატეგორია: {item.category}</p>
+
+        <div style={footerStyle}>
+          <span style={priceStyle}>{item.price} ₾</span>
+          <button
+            style={{
+              ...buttonStyle,
+              ...(isButtonHovered ? buttonHoverStyle : {}),
+            }}
+            onMouseEnter={() => setButtonHovered(true)}
+            onMouseLeave={() => setButtonHovered(false)}
+            onClick={handleAddToCart}
+          >
+            კალათაში დამატება
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default MenuItem;
