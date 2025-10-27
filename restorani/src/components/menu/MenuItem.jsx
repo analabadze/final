@@ -5,7 +5,8 @@ const cardStyle = {
   border: 'none',
   borderRadius: '16px',
   overflow: 'hidden',
-  width: '320px',
+  width: '100%',
+  maxWidth: '320px',
   backgroundColor: '#fff',
   display: 'flex',
   flexDirection: 'column',
@@ -21,17 +22,17 @@ const cardHoverStyle = {
 
 const imageStyle = {
   width: '100%',
-  height: '220px',
+  height: '200px',
   objectFit: 'cover',
   transition: 'transform 0.3s ease',
 };
 
 const contentStyle = {
-  padding: '18px',
+  padding: '16px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  gap: '12px',
+  gap: '10px',
   flexGrow: 1,
 };
 
@@ -66,11 +67,12 @@ const buttonStyle = {
   color: '#fff',
   border: 'none',
   borderRadius: '8px',
-  padding: '8px 14px',
-  fontSize: '0.9em',
+  padding: '8px 12px',
+  fontSize: '0.85em',
   fontWeight: 500,
   cursor: 'pointer',
   transition: 'background-color 0.25s ease, transform 0.2s ease',
+  whiteSpace: 'nowrap',
 };
 
 const buttonHoverStyle = {

@@ -23,7 +23,7 @@ const HomePage = () => {
   return (
     <>
       <Header />
-      <div className="container" style={{ padding: '20px 0' }}>
+      <div className="container" style={{ padding: '20px 15px' }}>
         <h1>მენიუ</h1>
         
         <CategoryFilter 
@@ -56,10 +56,16 @@ const HomePage = () => {
 };
 
 const menuListStyle = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-    gap: '25px',
-    marginTop: '20px',
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: '30px',
+  marginTop: '25px',
+  padding: '10px',
+  justifyItems: 'center',
+  alignItems: 'stretch',
+  width: '100%',
+  boxSizing: 'border-box',
 };
+
 
 export default HomePage;

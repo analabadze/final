@@ -58,7 +58,7 @@ const Footer = () => {
 const footerStyle = {
   backgroundColor: '#fff',
   color: '#333',
-  padding: '50px 8% 20px',
+  padding: '40px 5% 20px',
   boxShadow: '0 -2px 12px rgba(0,0,0,0.05)',
   fontFamily: "'Inter', sans-serif",
   transition: 'all 0.3s ease',
@@ -68,7 +68,7 @@ const footerContainerStyle = {
   display: 'flex',
   justifyContent: 'space-between',
   flexWrap: 'wrap',
-  gap: '40px',
+  gap: '30px',
 };
 
 const sectionTitleStyle = {
@@ -104,22 +104,22 @@ footerLinkStyle[':hover'] = {
 };
 
 const navSectionStyle = {
-  flex: '1 1 220px',
-  minWidth: '180px',
+  flex: '1 1 200px',
+  minWidth: '150px',
 };
 
 const contactSectionStyle = {
-  flex: '1 1 220px',
-  minWidth: '180px',
+  flex: '1 1 200px',
+  minWidth: '150px',
 };
 
 const brandSectionStyle = {
-  flex: '1 1 220px',
+  flex: '1 1 200px',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-end',
   textAlign: 'right',
-  minWidth: '180px',
+  minWidth: '150px',
 };
 
 const logoStyle = {
