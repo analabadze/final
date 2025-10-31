@@ -80,7 +80,7 @@ const buttonHoverStyle = {
   transform: 'scale(1.03)',
 };
 
-const MenuItem = ({ item }) => {
+const MenuItem = ({ item, isLcp = false }) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [isButtonHovered, setButtonHovered] = useState(false);
@@ -97,7 +97,9 @@ const MenuItem = ({ item }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
-      loading="lazy"
+        // If this image is the LCP candidate, request it eagerly and give it high fetch priority.
+        loading={isLcp ? 'eager' : 'lazy'}
+        fetchPriority={isLcp ? 'high' : undefined}
         src={item.image}
         alt={item.name}
         style={{

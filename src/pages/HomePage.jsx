@@ -20,6 +20,30 @@ const HomePage = () => {
       .catch(() => setLoading(false));
   }, [selectedCategory]);
 
+  // Preload the first menu item's image so the browser discovers the LCP image from the HTML
+  useEffect(() => {
+    if (!menuItems || menuItems.length === 0) return;
+    const firstImage = menuItems[0].image;
+    if (!firstImage) return;
+
+    // Avoid duplicating the preload link
+    const selector = `link[rel="preload"][as="image"][href="${firstImage}"]`;
+    if (document.querySelector(selector)) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.href = firstImage;
+    // allow CORS if the image is hosted on another origin
+    link.crossOrigin = 'anonymous';
+    document.head.appendChild(link);
+
+    return () => {
+      // cleanup the link when component unmounts or first image changes
+      if (link && link.parentNode) link.parentNode.removeChild(link);
+    };
+  }, [menuItems]);
+
   return (
     <>
       <Header />
@@ -35,12 +59,14 @@ const HomePage = () => {
           <div style={{ textAlign: 'center', padding: '50px' }}>მენიუ იტვირთება...</div>
         ) : (
           <div style={menuListStyle}>
-            {menuItems.map(item => (
-              <MenuItem 
-                key={item.id} 
-                item={item} 
-              />
-            ))}
+              {menuItems.map((item, index) => (
+                <MenuItem 
+                  key={item.id} 
+                  item={item}
+                  // mark the first menu item as the LCP candidate so its img is eager and high priority
+                  isLcp={index === 0}
+                />
+              ))}
             {menuItems.length === 0 && (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '20px' }}>
                 კერძები ვერ მოიძებნა.
