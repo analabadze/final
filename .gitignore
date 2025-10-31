@@ -1,0 +1,58 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+vite-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Local coverage reports
+coverage/
+*.lcov
+
+# Cache
+.cache/
+.vite/
+.eslintcache
+
+# Temporary files
+*.tmp
+*.temp
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+jest-cache/
+jest-test-results.json
+
+# Optional: if using Storybook
+out/
+storybook-static/
+
+# Optional: if using Docker
+docker-compose.override.yml
