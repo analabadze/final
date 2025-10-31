@@ -99,7 +99,7 @@ const selectedButtonStyle = {
   transform: 'scale(1.05)',
 };
 
-/* Hover effect using inline pseudo-behavior workaround */
+
 buttonStyle[':hover'] = {
   backgroundColor: '#e5e7eb',
 };

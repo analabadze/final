@@ -97,6 +97,7 @@ const MenuItem = ({ item }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <img
+      loading="lazy"
         src={item.image}
         alt={item.name}
         style={{

@@ -6,7 +6,7 @@ const Footer = () => {
     <footer style={footerStyle}>
       <div style={footerContainerStyle}>
         
-        {/* Navigation Section */}
+        
         <div style={navSectionStyle}>
           <p style={sectionTitleStyle}>ნავიგაცია</p>
           <ul style={ulStyle}>

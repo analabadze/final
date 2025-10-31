@@ -3,13 +3,17 @@ import { useCart } from '../../context/CartContext';
 
 const CartItem = ({ item }) => {
   const { addToCart, removeFromCart } = useCart();
-
+const imageSmall = "image-small.jpg"; // მაგალითი: 320x200
+  const imageMedium = "image-medium.jpg"; // მაგალითი: 500x313
+  const imageLarge = "image-large.jpg"; // მაგალითი: 700x438
 
   const displayPrice = typeof item.price === 'number' ? item.price.toFixed(2) : item.price;
 
   return (
     <div style={itemStyle}>
-      <img src={item.image} alt={item.name} style={imageStyle} />
+      <img src={item.image}   srcSet={`${imageSmall} 320w, 
+              ${imageMedium} 500w, 
+              ${imageLarge} 700w`}   alt={item.name} style={imageStyle}    />
       <div style={detailsStyle}>
         <h4>{item.name}</h4>
         <p>ფასი: **{displayPrice} ₾**</p>

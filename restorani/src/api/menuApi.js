@@ -14,17 +14,17 @@ export const fetchCategories = async () => {
 
 export const fetchMealsByCategory = async (categoryName) => {
   try {
-    const finalCategory = categoryName || 'Beef'; // ნაგულისხმევი კატეგორია, თუ არაფერია არჩეული
+    const finalCategory = categoryName || 'Beef';
     const response = await axios.get(`${BASE_URL}/filter.php?c=${finalCategory}`);
     
-    // მონაცემების გასუფთავება და ფეიკ ფასის დამატება
+    
     const mealsWithPrice = (response.data.meals || [])
       .slice(0, 10) 
       .map(meal => ({
         id: meal.idMeal,
         name: meal.strMeal,
         image: meal.strMealThumb,
-        // ფეიკ ფასი $20-დან $35-მდე
+       
         price: (Math.random() * (25 - 8) + 8).toFixed(2), 
         category: finalCategory
       }));

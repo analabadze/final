@@ -1,34 +1,33 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
+import React, { lazy, Suspense } from 'react';
 
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
+const HomePage = lazy(() => import('./pages/HomePage'));
+const CartPage = lazy(() => import('./pages/CartPage'));
+const AboutPage = lazy(() => import('./pages/AboutPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 
-import HomePage from './pages/HomePage';
-import CartPage from './pages/CartPage';
-import AboutPage from './pages/AboutPage'; 
-import ContactPage from './pages/ContactPage';
+const LoadingFallback = () => (
+  <div style={{ textAlign: 'center', padding: '50px' }}>იტვირთება...</div>
+);
 
 function App() {
   return (
     <Router>
       <CartProvider>
-        
+
         <div style={appContainerStyle}>
-          
-         
-        
           <main style={mainContentStyle}>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/cart" element={<CartPage />} />
-              <Route path="/about" element={<AboutPage />} /> 
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="*" element={<h1 className="container">404 - გვერდი ვერ მოიძებნა</h1>} />
-            </Routes>
+            <Suspense fallback={<LoadingFallback />}>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/cart" element={<CartPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="*" element={<h1 className="container">404 - გვერდი ვერ მოიძებნა</h1>} />
+              </Routes>
+            </Suspense>
           </main>
-          
-        
         </div>
       </CartProvider>
     </Router>
