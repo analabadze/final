@@ -60,8 +60,10 @@ const footerStyle = {
   color: '#333',
   padding: '40px 5% 20px',
   boxShadow: '0 -2px 12px rgba(0,0,0,0.05)',
-  fontFamily: "'Inter', sans-serif",
-  transition: 'all 0.3s ease',
+  
+  fontFamily: 'inherit',
+  
+  transition: 'none',
 };
 
 const footerContainerStyle = {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { useCart } from '../../context/CartContext';
 
 const cardStyle = {
@@ -25,6 +25,7 @@ const imageStyle = {
   height: '200px',
   objectFit: 'cover',
   transition: 'transform 0.3s ease',
+  aspectRatio: '16/9', // Prevent layout shift
 };
 
 const contentStyle = {
@@ -41,12 +42,18 @@ const titleStyle = {
   fontWeight: 600,
   color: '#222',
   marginBottom: '8px',
+  minHeight: '2.2em', // Reserve space for 2 lines
+  display: '-webkit-box',
+  WebkitLineClamp: 2,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
 };
 
 const categoryStyle = {
   fontSize: '0.9em',
   color: '#666',
   marginBottom: '10px',
+  minHeight: '1.1em', // Reserve space for category text
 };
 
 const footerStyle = {
@@ -60,6 +67,7 @@ const priceStyle = {
   fontSize: '1.25em',
   fontWeight: '700',
   color: 'var(--primary-color, #0070f3)',
+  minWidth: '60px', // Reserve space for price
 };
 
 const buttonStyle = {
@@ -80,7 +88,7 @@ const buttonHoverStyle = {
   transform: 'scale(1.03)',
 };
 
-const MenuItem = ({ item, isLcp = false }) => {
+const MenuItem = memo(({ item, isLcp = false }) => {
   const { addToCart } = useCart();
   const [isHovered, setIsHovered] = useState(false);
   const [isButtonHovered, setButtonHovered] = useState(false);
@@ -96,17 +104,21 @@ const MenuItem = ({ item, isLcp = false }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <img
-        // If this image is the LCP candidate, request it eagerly and give it high fetch priority.
-        loading={isLcp ? 'eager' : 'lazy'}
-        fetchPriority={isLcp ? 'high' : undefined}
-        src={item.image}
-        alt={item.name}
-        style={{
-          ...imageStyle,
-          transform: isHovered ? 'scale(1.03)' : 'scale(1)',
-        }}
-      />
+      <picture>
+        <source srcSet={`${item.image}?format=webp`} type="image/webp" />
+        <img
+          // If this image is the LCP candidate, request it eagerly and give it high fetch priority.
+          loading={isLcp ? 'eager' : 'lazy'}
+          fetchPriority={isLcp ? 'high' : undefined}
+          src={item.image}
+          alt={item.name}
+          decoding="async"
+          style={{
+            ...imageStyle,
+            transform: isHovered ? 'scale(1.03)' : 'scale(1)',
+          }}
+        />
+      </picture>
       <div style={contentStyle}>
         <h3 style={titleStyle}>{item.name}</h3>
         <p style={categoryStyle}>კატეგორია: {item.category}</p>
@@ -128,6 +140,6 @@ const MenuItem = ({ item, isLcp = false }) => {
       </div>
     </div>
   );
-};
+});
 
 export default MenuItem;

@@ -1,25 +1,40 @@
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 
-// Helper to lazily load axios only when an API call is made.
+
+let categoriesCache = null;
+
+
 const getAxios = async () => {
   const { default: axios } = await import('axios');
   return axios;
 };
 
 export const fetchCategories = async () => {
+  if (categoriesCache) {
+    return categoriesCache;
+  }
   try {
     const axios = await getAxios();
     const response = await axios.get(`${BASE_URL}/categories.php`);
-    return response.data.categories || [];
+    categoriesCache = response.data.categories || [];
+    return categoriesCache;
   } catch (error) {
     console.error("Error fetching categories:", error);
     return [];
   }
 };
 
+
+const mealsCache = new Map();
+
 export const fetchMealsByCategory = async (categoryName) => {
+  const finalCategory = categoryName || 'Beef';
+
+  if (mealsCache.has(finalCategory)) {
+    return mealsCache.get(finalCategory);
+  }
+
   try {
-    const finalCategory = categoryName || 'Beef';
     const axios = await getAxios();
     const response = await axios.get(`${BASE_URL}/filter.php?c=${finalCategory}`);
 
@@ -33,6 +48,7 @@ export const fetchMealsByCategory = async (categoryName) => {
         category: finalCategory
       }));
 
+    mealsCache.set(finalCategory, mealsWithPrice);
     return mealsWithPrice;
   } catch (error) {
     console.error(`Error fetching meals for ${categoryName}:`, error);

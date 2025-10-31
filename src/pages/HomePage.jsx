@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../components/common/Header';
+import React, { useState, useEffect, lazy, Suspense, useMemo } from 'react';
+const Header = lazy(() => import('../components/common/Header'));
 import CategoryFilter from '../components/menu/CategoryFilter';
 import { fetchMealsByCategory } from '../api/menuApi';
 import MenuItem from '../components/menu/MenuItem';
-import Footer from '../components/common/Footer';
+const Footer = lazy(() => import('../components/common/Footer'));
 
 const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
@@ -20,13 +20,12 @@ const HomePage = () => {
       .catch(() => setLoading(false));
   }, [selectedCategory]);
 
-  // Preload the first menu item's image so the browser discovers the LCP image from the HTML
+
   useEffect(() => {
     if (!menuItems || menuItems.length === 0) return;
     const firstImage = menuItems[0].image;
     if (!firstImage) return;
 
-    // Avoid duplicating the preload link
     const selector = `link[rel="preload"][as="image"][href="${firstImage}"]`;
     if (document.querySelector(selector)) return;
 
@@ -34,39 +33,59 @@ const HomePage = () => {
     link.rel = 'preload';
     link.as = 'image';
     link.href = firstImage;
-    // allow CORS if the image is hosted on another origin
+    link.fetchPriority = 'high';
     link.crossOrigin = 'anonymous';
     document.head.appendChild(link);
 
     return () => {
-      // cleanup the link when component unmounts or first image changes
       if (link && link.parentNode) link.parentNode.removeChild(link);
     };
   }, [menuItems]);
 
+  const memoizedMenuItems = useMemo(() =>
+    menuItems.map((item, index) => (
+      <MenuItem
+        key={item.id}
+        item={item}
+      
+        isLcp={index === 0}
+      />
+    )), [menuItems]);
+
   return (
     <>
-      <Header />
+      <Suspense fallback={<div style={{height: '64px', backgroundColor: 'var(--header-bg, #ffffff)', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'}}></div>}>
+        <Header />
+      </Suspense>
       <div className="container" style={{ padding: '20px 15px' }}>
-        <h1>მენიუ</h1>
-        
-        <CategoryFilter 
-          onSelectCategory={setSelectedCategory} 
-          selectedCategory={selectedCategory}
-        />
+        <h1 style={{ minHeight: '2.5em', marginBottom: '25px' }}>მენიუ</h1>
+
+        <div style={{ minHeight: '120px', marginBottom: '25px' }}>
+          <CategoryFilter
+            onSelectCategory={setSelectedCategory}
+            selectedCategory={selectedCategory}
+          />
+        </div>
 
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '50px' }}>მენიუ იტვირთება...</div>
+          <div style={menuListStyle}>
+            {Array.from({ length: 10 }, (_, index) => (
+              <div key={index} style={skeletonStyle}>
+                <div style={skeletonImageStyle}></div>
+                <div style={skeletonContentStyle}>
+                  <div style={skeletonTitleStyle}></div>
+                  <div style={skeletonCategoryStyle}></div>
+                  <div style={skeletonFooterStyle}>
+                    <div style={skeletonPriceStyle}></div>
+                    <div style={skeletonButtonStyle}></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div style={menuListStyle}>
-              {menuItems.map((item, index) => (
-                <MenuItem 
-                  key={item.id} 
-                  item={item}
-                  // mark the first menu item as the LCP candidate so its img is eager and high priority
-                  isLcp={index === 0}
-                />
-              ))}
+              {memoizedMenuItems}
             {menuItems.length === 0 && (
               <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '20px' }}>
                 კერძები ვერ მოიძებნა.
@@ -76,7 +95,9 @@ const HomePage = () => {
         )}
       </div>
 
-      <Footer/>
+      <Suspense fallback={<div style={{height: '120px', backgroundColor: 'var(--header-bg, #ffffff)', borderTop: '1px solid #eee'}}></div>}>
+        <Footer />
+      </Suspense>
     </>
   );
 };
@@ -91,6 +112,72 @@ const menuListStyle = {
   alignItems: 'stretch',
   width: '100%',
   boxSizing: 'border-box',
+  containIntrinsicSize: '0 200px', // Reserve space for layout stability
+};
+
+const skeletonStyle = {
+  border: 'none',
+  borderRadius: '16px',
+  overflow: 'hidden',
+  width: '100%',
+  maxWidth: '320px',
+  backgroundColor: '#fff',
+  display: 'flex',
+  flexDirection: 'column',
+  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+  animation: 'pulse 1.5s ease-in-out infinite',
+};
+
+const skeletonImageStyle = {
+  width: '100%',
+  height: '200px',
+  backgroundColor: '#f0f0f0',
+  aspectRatio: '16/9',
+};
+
+const skeletonContentStyle = {
+  padding: '16px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  gap: '10px',
+  flexGrow: 1,
+};
+
+const skeletonTitleStyle = {
+  height: '1.1em',
+  backgroundColor: '#f0f0f0',
+  borderRadius: '4px',
+  marginBottom: '8px',
+};
+
+const skeletonCategoryStyle = {
+  height: '0.9em',
+  backgroundColor: '#f0f0f0',
+  borderRadius: '4px',
+  width: '60%',
+  marginBottom: '10px',
+};
+
+const skeletonFooterStyle = {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  marginTop: '12px',
+};
+
+const skeletonPriceStyle = {
+  height: '1.25em',
+  backgroundColor: '#f0f0f0',
+  borderRadius: '4px',
+  width: '50px',
+};
+
+const skeletonButtonStyle = {
+  height: '2.5em',
+  backgroundColor: '#f0f0f0',
+  borderRadius: '8px',
+  width: '120px',
 };
 
 

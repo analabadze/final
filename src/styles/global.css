@@ -14,6 +14,25 @@
   --font-family: 'Georgia', serif, sans-serif; /* Pairing a classic serif with system fallback */
 }
 
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Georgia';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Georgia');
+}
+
+/* Skeleton loading animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 * {
   box-sizing: border-box;
 }

@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import React, { lazy, Suspense } from 'react';
 
-const HomePage = lazy(() => import('./pages/HomePage'));
+// Preload critical route
+const HomePage = lazy(() => import(/* webpackPreload: true */ './pages/HomePage'));
 const CartPage = lazy(() => import('./pages/CartPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { fetchCategories } from '../../api/menuApi';
 
-const CategoryFilter = ({ onSelectCategory, selectedCategory }) => {
+const CategoryFilter = memo(({ onSelectCategory, selectedCategory }) => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -9,7 +9,7 @@ const CategoryFilter = ({ onSelectCategory, selectedCategory }) => {
     setLoading(true);
     fetchCategories()
       .then(data => {
-        setCategories(data.slice(0, 10)); // Only show up to 10 categories
+        setCategories(data.slice(0, 10)); 
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -47,7 +47,7 @@ const CategoryFilter = ({ onSelectCategory, selectedCategory }) => {
       </div>
     </div>
   );
-};
+});
 
 /* ===================== Modernized Styles ===================== */
 

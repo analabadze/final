@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <!-- Preconnect and dns-prefetch for the external API to shorten critical path for LCP/resources fetched from it -->
+    <link rel="preconnect" href="https://www.themealdb.com" crossorigin>
+    <link rel="dns-prefetch" href="//www.themealdb.com">
+    <!-- Modulepreload the main module to reduce module fetch latency in browsers that support it -->
+    <link rel="modulepreload" href="/src/main.jsx">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>restorani</title>
   </head>

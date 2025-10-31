@@ -1,5 +1,5 @@
-import React from 'react';
-import Header from '../components/common/Header';
+import React, { lazy, Suspense } from 'react';
+const Header = lazy(() => import('../components/common/Header'));
 import { useCart } from '../context/CartContext';
 import CartItem from '../components/order/CartItem';
 
@@ -12,7 +12,9 @@ const CartPage = () => {
 
   return (
     <>
-      <Header />
+      <Suspense fallback={<div style={{height: '64px'}}></div>}>
+        <Header />
+      </Suspense>
       <div className="container" style={{ padding: '40px 0' }}>
         <h2>თქვენი კალათა ({totalItems})</h2>
 
