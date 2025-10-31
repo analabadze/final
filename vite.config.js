@@ -7,9 +7,21 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: ['axios'],
+        // Provide a function for manualChunks (rolldown expects a function).
+        // Map certain node_modules packages into named chunks.
+        manualChunks(id) {
+          if (!id) return;
+          // normalize path checks for node_modules
+          if (id.includes('node_modules')) {
+            // put react family into vendor
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor';
+            }
+            // put axios in a separate ui chunk
+            if (id.includes('axios')) {
+              return 'ui';
+            }
+          }
         },
       },
     },
